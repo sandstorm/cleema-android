@@ -1,0 +1,45 @@
+stages:
+  - publish
+
+# Builds the Android app and produces a local file
+# Can always run, also in merge requests
+app_build_and_publish_android:
+  extends: .app_base_android
+  stage: publish
+  needs: [] # do not wait for any other jobs
+  dependencies: [] # do not download artifacts from other jobs
+  when: manual
+  # rules: TODO: later we want to publish the main branch automatically but not today
+  #  - if: '$CI_COMMIT_BRANCH =~ /^main/'
+  #    changes:
+  #      - app/**/*
+  #      - gitlab-ci/*
+  #      - .gitlab-ci.yml
+  cache:
+    - key: pub-cache-$CI_COMMIT_REF_SLUG
+      paths:
+        - $CI_PROJECT_DIR/.pub-cache/
+  script:
+    - export PUB_CACHE=$CI_PROJECT_DIR/.pub-cache
+    - export PATH="$PATH":"$PUB_CACHE/bin"
+    - cat $SECRET_PROPERTIES_FILE > secret.properties
+    - echo $ORG_GRADLE_PROJECT_ANDROID_RELEASE_KEYSTORE_FILE_PATH
+    - echo "Pipeline $CI_PIPELINE_ID"
+    - fastlane beta
+
+.app_base_android:
+  tags: [osx] # runs on MAC Mini
+  resource_group: android-build # ensure the OSX build runs sequentially across ALL pipelines in this project.
+  variables:
+    # disable shallow cloning, because we use a shared shell runner - so having everything cloned is way faster.
+    GIT_DEPTH: 0
+  interruptible: true
+  before_script:
+    - killall Terminal 2> /dev/null || echo "no running Terminal found, no problem"
+    - killall java 2> /dev/null || echo "no running java found, no problem"
+    - killall watchman 2> /dev/null || echo "no running watchman found, no problem"
+    - export LC_ALL=en_US.UTF-8
+    - export LANG=en_US.UTF-8
+    - export ANDROID_SDK_ROOT=~/Library/Android/sdk
+    - cat $ANDROID_RELEASE_KEYSTORE_FILE_PATH | base64 -d > ./android_keystore.keystore
+    - export ORG_GRADLE_PROJECT_ANDROID_RELEASE_KEYSTORE_FILE_PATH=$(pwd)/android_keystore.keystore

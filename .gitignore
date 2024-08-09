@@ -22,7 +22,6 @@ local.properties
 build/
 
 # Local configuration file (sdk path, etc)
-local.properties
 
 # Log/OS Files
 *.log
@@ -35,7 +34,6 @@ captures/
 output.json
 
 # IntelliJ
-*.iml
 .idea/
 misc.xml
 deploymentTargetDropDown.xml
@@ -108,7 +106,6 @@ replay_pid*
 
 ### macOS ###
 # General
-.DS_Store
 .AppleDouble
 .LSOverride
 
@@ -157,7 +154,6 @@ gen/
 out/
 
 # Gradle files
-.gradle
 
 # Signing files
 .signing/
@@ -188,7 +184,6 @@ proguard/
 # Android Patch
 
 # External native build folder generated in Android Studio 2.2 and later
-.externalNativeBuild
 
 # NDK
 obj/
@@ -257,3 +252,9 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/android,androidstudio,kotlin,macos,fastlane
+/secret.properties
+/play-store-credentials.json
+/keystore.properties
+/keystores
+
+.env

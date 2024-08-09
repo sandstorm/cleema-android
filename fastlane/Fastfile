@@ -1,0 +1,56 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+before_all do
+  update_fastlane
+end
+
+default_platform(:android)
+
+platform :android do
+  error do |lane, exception|
+    slack(message: "Something went wrong with the Android build",
+    channel: "#project-cleema-monitoring",
+    success: false,
+    payload: { "Error Info" => exception.error_info.to_s }
+  )
+  end
+
+  lane :beta do
+    new_version_code = ENV["CI_PIPELINE_ID"] || -1  # Again, consider a safer default
+
+    gradle(
+        task: "clean app:bundleRelease",
+        properties: {
+          'newVersionCode' => new_version_code,
+          "ANDROID_RELEASE_KEYSTORE_FILE_PATH" => ENV["ORG_GRADLE_PROJECT_ANDROID_RELEASE_KEYSTORE_FILE_PATH"],
+          "ANDROID_RELEASE_KEYSTORE_PASSWORD" => ENV["ANDROID_RELEASE_KEYSTORE_PASSWORD"],
+          "ANDROID_RELEASE_KEYSTORE_KEY_ALIAS" => ENV["ANDROID_RELEASE_KEYSTORE_KEY_ALIAS"],
+          "ANDROID_RELEASE_KEYSTORE_KEY_PASSWORD" => ENV["ANDROID_RELEASE_KEYSTORE_KEY_PASSWORD"]
+        }
+    )
+
+    # https://docs.fastlane.tools/actions/upload_to_play_store/#parameters
+    upload_to_play_store(
+        track: 'internal',
+    )
+
+    slack(
+        message: "Cleema BETA-Android - pushed to Internal track in Play Store",
+        channel: "#project-cleema-monitoring",
+        success: true
+    )
+  end
+end

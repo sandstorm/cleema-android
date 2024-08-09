@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="name_validation">Name darf nicht leer sein</string>
+    <string name="mail_validation">Keine gültige Email-Adresse</string>
+    <string name="password_validation">Das Passwort muss mindestens 10 Zeichen lang sein</string>
+    <string name="confirmation_validation">Passwörter stimmen nicht überein</string>
+    <string name="region_validation">Bitte wähle eine Region</string>
+    <string name="approve_surveys_title">Ich möchte an Befragungen teilnehmen</string>
+    <string name="save_button_title">Jetzt starten</string>
+    <string name="name_placeholder">Name</string>
+    <string name="mail_placeholder">Mail</string>
+    <string name="password_placeholder">Passwort</string>
+    <string name="password_confirmation_placeholder">Bestätigung</string>
+</resources>

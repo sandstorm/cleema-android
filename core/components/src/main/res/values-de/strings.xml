@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="avatar_placeholder">Avatar-Platzhalter</string>
+    <string name="error_close_button">Schließen</string>
+    <string name="add_favorite_description">Favorit hinzufügen</string>
+    <string name="remove_favorite_description">Favorit entfernen</string>
+    <string name="registration_error_username_taken">Benutzername ist bereits vergeben. Wähle einen anderen.</string>
+    <string name="registration_error_email_or_username_taken">E-Mail oder Nutzername bereits vergeben</string>
+    <string name="registration_error_identifier_or_password_invalid">Ungültiger Nutzername oder Passwort</string>
+    <string name="name_validation">Name darf nicht leer sein</string>
+    <string name="region_validation">Bitte wähle eine Region</string>
+</resources>

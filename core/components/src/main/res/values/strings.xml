@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="avatar_placeholder">Placeholder for an avatar</string>
+    <string name="error_close_button">Close</string>
+    <string name="add_favorite_description">Add favorite</string>
+    <string name="remove_favorite_description">Remove favorite</string>
+    <string name="registration_error_username_taken">Username is already taken. Please use another one.</string>
+    <string name="registration_error_email_or_username_taken">Email or Username are already taken</string>
+    <string name="registration_error_identifier_or_password_invalid">Invalid identifier or password</string>
+    <string name="name_validation">Name must not be empty</string>
+    <string name="region_validation">A default region must be selected</string>
+</resources>
